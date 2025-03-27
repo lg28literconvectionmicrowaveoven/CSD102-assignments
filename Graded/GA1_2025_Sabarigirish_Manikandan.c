@@ -53,7 +53,7 @@ void insert_sorted(Tourist **head, Tourist *new_tourist) {
     }
 }
 
-int remove_tourist_by_name(Tourist **head, char *first_name, char *last_name) {
+void remove_tourist_by_name(Tourist **head, char *first_name, char *last_name) {
     Tourist *temp = *head;
     Tourist *prev = NULL;
     while (temp != NULL) {
@@ -64,12 +64,10 @@ int remove_tourist_by_name(Tourist **head, char *first_name, char *last_name) {
             else
                 prev->next = temp->next;
             free(temp);
-            return 1;
         }
         prev = temp;
         temp = temp->next;
     }
-    return 0;
 }
 
 int main() {
@@ -123,10 +121,7 @@ int main() {
                         }
                         temp = temp->next;
                     }
-                    if (prev_to_last != NULL)
-                        prev_to_last->next = NULL;
-                    else
-                        TRIP_head = NULL;
+                    prev_to_last->next = NULL;
                     free(last_trip);
                     Tourist *trip_tourist =
                         create_tourist(first_name, last_name, id, 1);
@@ -187,9 +182,6 @@ int main() {
                 remove_tourist_by_name(&WAITLIST_head, first_name, last_name);
                 bookings--;
                 waitlist_count--;
-            } else if (status == 0) {
-                remove_tourist_by_name(&BOOKING_head, first_name, last_name);
-                bookings--;
             }
             break;
         }
